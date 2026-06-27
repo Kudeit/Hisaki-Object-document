@@ -1,0 +1,78 @@
+[ Objectプログラミング言語 ]
+#include aaa.txt     [ aaa.txtのイングルード ]
+set ahahahaha = 132     [ ahahahahaに132を定義、#defineに近い ]
+set x int abc            [ intサイズの領域を定義してabcをその領域に設定する ]
+set 12 int bcd           [ メモリ12番地のポインタをbcdに定義 ]
+set {12} int cde          [ メモリの12番地のポインタ番目 ]
+set x int*3 def = 13,24,1    [ int3個サイズの領域を作ってdefにそのポインタを定義して数字を入れる ]
+set x 3 efg = <1,0,0>          [ 3bitサイズの領域を作ってefgにポインタを定義し、bitを入れる ]
+set x char fgh = 'a'         [ charサイズの領域、fghに定義、aを入れる ]
+set x char*6 ghi = "aaaaa"         [ 'a'が5個を入れる ]
+set x int+char*3 list = 12,"aa"     [ int+char3個サイズの領域、listに定義、12,'a','a'を入れる ]
+
+int aaaaa       [ aaaaaを定義、イングルードとかリンカーが解決するでしょう ]
+
+
+set xl int+char wert       [ xl、適当に空いてるレジスタに割り当てる。go、wentを使った時に消える ]
+  {list} = {wert}         [ listポインタの場所にwertポインタの場所のものを入れる ]
+  {def* +1} = 14      [ 14はintだから、def+int*1の場所に14を入れる ]
+exit      [ スタックを崩す ]
+
+
+
+set x int hij        [ メモリにintサイズの領域を作ってhijにポインタを定義 ]
+  {bcd} = hij       [ bcdのポインタ場所にhijのポインタを入れる ]
+  set cr3 int adfef      [ cr3レジスタにintサイズの領域を作ってadfefにポインタ定義 ]
+  {adfef} = 133
+  {cr3} = 1      [ cr3に数字1を入れる ]
+  {list} = 23
+  {list+int} = "ah"       [ listポインタにintサイズ分足した場所に'a','h'、charを入れる ]
+  {list+int+char} = 'a'
+exit
+
+
+set xl int jkl    [ レジスタに領域作ってjklにポインタ入れる。ABIがC言語と合うように優先して詰められる ]
+  {cde} = {jkl}
+  set x int {16}      [ メモリ16番地にintサイズでメモリ内に作った領域のポインタを入れる ]
+  went wert = 12,'d'     [ wertのポインタ場所に12,'d'をいれて入れた分加算したポインタ場所にスタック積んで飛ぶ ]
+exit
+
+
+set main        [ ポインタを定義 ]
+  set xl int klm
+  went hij = 12
+  {klm} = {{bcd}}       [ bcdの場所のポインタ場所のものをklmの場所に入れる ]
+  if < {klm} == 12 >       [ klmの場所が12なら1bit、1、ifは< 1 >なら進んでいく ]
+    stop 1       [ 1秒間止まる ]
+  else       [ ではないなら ]
+    {klm} = <1>       [ klmの場所の1bitを1にする ]
+    {klm+1} = <0>       [ klmポインタ+1番目の1bitを0にする ]
+    XOR <{abc}>       [ abcの場所の1bitを反転 ]
+    XOR {abc}        [ abcの場所全部一斉に反転 ]
+    go 184       [ メモリ184番地にジャンプ ]
+  end      [ ifの終わり ]
+  while <{efg+1}>     [ efg+1ポインタの場所の1bitが1の間ループ ]
+  end     [ while終わり ]
+  for i = 10      [ ループ用にレジスタにiを作って10まで繰り返し ]
+    i++      [ +1する ]
+  end      [ forの終わり、iは消える ]
+  switch {abc}
+    case 12
+      break
+    case 11
+      break
+  end     [ switchの終わり、breakはここに飛んでくる ]
+HLT       [ CPU強制停止 ]
+
+
+bcdはintですが、{bcd} = 'r'　なんてことも可能です(当然警告は出ます)
+​set x int+char*3 list　は​intを4バイト、charを1バイトとした時、7バイトを連続確保します。
+​{list+int}　は​intを4バイトとした時、4バイト分足したポインタ場所です。
+exitやwent goをした時にレジスタ(xlやcr3などの直指定)のやつは消えます。{name+1}　のようにした場合、1bit分足したポインタ場所。
+set x int abc　abc+1　の場合も変わらず1bit分足したポインタ場所。
+{abc} = 14
+if <{abc}>　この場合、abcの場所の最初の1bit分が1なら(最初の1bit以外見ない)。if {abc}　とやるとabcの場所が全て1ならになります。
+went abc　これは普通に可能ですが、クラッシュします(int数字分を実行するため。警告は出す)。went abc = 15　のようにすることでint部分を飛び越えて次のコード部分などにいけます(ただ、abcのsetの後のところに続きのコードをしっかり書きましょう)。
+関数と変数の壁はない。
+xlで作っていく時、C言語のABIの分から順に使われる。これにより最初の関数呼び出しのときのレジスタがC言語ABIと合うので互換機ができる。
+[ ]　はコメントです。
