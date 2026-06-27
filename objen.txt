@@ -1,0 +1,77 @@
+#include aaa.txt     [ Include aaa.txt ]
+set ahahahaha = 132     [ Define 132 to ahahahaha, similar to #define ]
+set x int abc            [ Define an int-sized area and set abc to that area ]
+set 12 int bcd           [ Define the pointer at memory address 12 to bcd ]
+set {12} int cde          [ The location pointed to by memory address 12 ]
+set x int*3 def = 13,24,1    [ Define an area of 3 ints, set the pointer to def, and input numbers ]
+set x 3 efg = <1,0,0>          [ Define an area of 3 bits, set the pointer to efg, and input bits ]
+set x char fgh = 'a'         [ Define a char-sized area, set fgh to it, and input 'a' ]
+set x char*6 ghi = "aaaaa"         [ Input five 'a's ]
+set x int+char*3 list = 12,"aa"     [ Define an area of (int + 3 chars), set list to it, and input 12, 'a', 'a' ]
+
+int aaaaa       [ Define aaaaa, the include/linker will resolve this ]
+
+
+set xl int+char wert       [ Allocate to xl, a suitable register. Cleared when using go or went ]
+  {list} = {wert}         [ Put the contents of the wert pointer into the list pointer ]
+  {def* +1} = 14      [ 14 is an int, so put 14 into the location def + (int * 1) ]
+exit      [ Destroy the stack ]
+
+
+
+set x int hij        [ Define an int-sized area in memory and set the pointer to hij ]
+  {bcd} = hij       [ Put the hij pointer into the bcd pointer location ]
+  set cr3 int adfef      [ Define an int-sized area in the cr3 register and set the pointer to adfef ]
+  {adfef} = 133
+  {cr3} = 1      [ Put the number 1 into cr3 ]
+  {list} = 23
+  {list+int} = "ah"       [ Put 'a', 'h' (chars) into the location of list + int size ]
+  {list+int+char} = 'a'
+exit
+
+
+set xl int jkl    [ Allocate area in a register and set pointer to jkl. Prefers filling based on C ABI ]
+  {cde} = {jkl}
+  set x int {16}      [ Put the pointer of the area created in memory into memory address 16 ]
+  went wert = 12,'d'     [ Put 12, 'd' into the wert pointer location, increment by the added size, and jump with stack ]
+exit
+
+
+set main        [ Define the pointer ]
+  set xl int klm
+  went hij = 12
+  {klm} = {{bcd}}       [ Put the content of the pointer location of bcd into the klm location ]
+  if < {klm} == 12 >       [ If the location of klm is 12, 1 bit, 1. If < 1 >, proceed ]
+    stop 1       [ Stop for 1 second ]
+  else       [ If not ]
+    {klm} = <1>       [ Set the 1st bit of klm's location to 1 ]
+    {klm+1} = <0>       [ Set the (klm pointer + 1)th bit to 0 ]
+    XOR <{abc}>       [ Invert 1 bit at the abc location ]
+    XOR {abc}        [ Invert all at the abc location simultaneously ]
+    go 184       [ Jump to memory address 184 ]
+  end      [ End of if ]
+  while <{efg+1}>     [ Loop while the 1st bit at the efg+1 pointer location is 1 ]
+  end     [ End of while ]
+  for i = 10      [ Create i in a register for looping, repeat up to 10 ]
+    i++      [ Increment by 1 ]
+  end     [ End of for, i is cleared ]
+  switch {abc}
+    case 12
+      break
+    case 11
+      break
+  end     [ End of switch, break jumps here ]
+HLT       [ Force CPU stop ]
+
+
+Even though `bcd` is an `int`, an assignment like `{bcd} = 'r'` is possible (though it will naturally trigger a warning).
+`set x int+char*3 list` allocates 7 contiguous bytes of memory (assuming 4 bytes for `int` and 1 byte for `char`).
+`{list+int}` refers to the pointer location offset by 4 bytes (assuming a 4-byte `int`).
+Registers specified directly (such as `xl` or `cr3`) are cleared upon `exit` or `went go`. An expression like `{name+1}` refers to a pointer location offset by 1 bit.
+Similarly, in the case of `set x int abc` followed by `abc+1`, it refers to a pointer location offset by 1 bit.
+`{abc} = 14`
+`if <{abc}>`: This condition evaluates to true if the first bit at the `abc` location is 1 (only the first bit is checked). In contrast, `if {abc}` evaluates to true only if the entire `abc` memory area consists of 1s.
+`went abc`: This is syntactically valid but causes a crash (because the system attempts to execute code starting at that memory address as if it were an `int` value; a warning is issued). Using `went abc = 15` allows you to skip over the `int` section and jump to the subsequent code (ensure that the following code is properly written after the `abc` definition).
+There is no distinction between functions and variables.
+When building with `xl`, memory is allocated sequentially according to the C language ABI. This ensures that registers match the C ABI during the initial function call, enabling compatibility with other systems.
+`[ ]` denotes a comment.
