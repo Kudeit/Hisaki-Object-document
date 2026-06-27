@@ -1,21 +1,42 @@
 MIT License
 
-Copyright (c) 2026 Kudeit
+Copyright (c) 2026 Hisaki(Kudeit)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+日本語/Japanese
+本仕様書は無償での閲覧が許可されます。再配布を行う場合は以下の条件に従ってください。
+​著作権表示: 元の著作権表示を保持すること。
+​改変時の義務: 仕様書を改変して再配布する場合、改変箇所を明記し、改変前の内容と対比させる説明を付与すること。
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+仕様書に準拠したソフトウェアの作成及び配布は著作権表示を保持する限り承諾されます。
+改変版の扱い: 仕様書を改変した上で準拠するソフトウェアの場合も、改変部分の説明と著作権表示を行うことで配布が許諾されます。
+仕様書を改変した上で準拠するソフトウェアの販売も承諾されています。
+​公式利用: 作成されたソフトウェアは、必要に応じて公式環境にて採用・利用される場合があります。
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+名称の使用について、Hisaki Objectという名前の使用に以下の制限を設けます。
+​使用条件: 本仕様書に完全準拠し、かつ著作権表示を行っている場合に限り、ソフトウェア等の製品名の一部として「Hisaki Object」を使用することが許可されます。
+​禁止事項:
+​以下の場合は「Hisaki Object」という名称を一切使用してはなりません。
+​仕様書に準拠していない、あるいは改変した仕様に基づいている場合。
+​名称をそのまま（単独で）使用することはできません。必ず製品名の一部として使用してください。
+​販売: 仕様書に完全準拠し、著作権表示を行っている場合に限り、製品名に「Hisaki Object」を付与して販売することを許可します。
+
+Hisakiという名称について
+制作者名にHisakiという名称を使用しないでください。
+
+
+英語/English    A translation is being used.
+This specification is provided for free viewing. If you wish to redistribute this document, you must comply with the following conditions:
+ * **Copyright Notice:** The original copyright notice must be retained.
+ * **Obligation for Modifications:** If you modify and redistribute this specification, you must clearly specify the modified sections and provide an explanation comparing the changes against the original content.
+The creation and distribution of software compliant with this specification are permitted, provided the copyright notice is retained.
+ * **Handling of Modified Versions:** For software compliant with a modified version of this specification, distribution is permitted provided that the modifications are explained and the original copyright notice is included.
+ * **Sales:** The sale of software compliant with a modified version of this specification is also permitted.
+ * **Official Use:** Software created under these terms may be adopted and used in official environments as necessary.
+### Regarding the use of the name "Hisaki Object," the following restrictions apply:
+ * **Conditions for Use:** You are permitted to use "Hisaki Object" as part of a product name (e.g., for software) only if the product is fully compliant with this specification and includes the copyright notice.
+ * **Prohibitions:** You must not use the name "Hisaki Object" under any circumstances in the following cases:
+   * If the product is not compliant with this specification or is based on a modified version of the specification.
+   * The name may not be used on its own (as a standalone term); it must be used as part of a product name.
+ * **Sales:** You are permitted to sell products with "Hisaki Object" included in the product name, provided the product is fully compliant with this specification and includes the copyright notice.
+### Regarding the name "Hisaki":
+You must not use the name "Hisaki" to identify the creator.
